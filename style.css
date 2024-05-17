@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #222;
+}
+
+#game {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    background-color: #333;
+    overflow: hidden;
+    border: 2px solid #fff;
+}
+
+#player {
+    position: absolute;
+    bottom: 50px; /* Increased space above the player */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 250px; /* 5x larger than before */
+    height: 250px; /* 5x larger than before */
+    background-color: #fff;
+    color: #000;
+    font-size: 150px; /* 5x larger than before */
+    text-align: center;
+    line-height: 250px; /* To vertically center the "P" */
+}
