@@ -11,27 +11,60 @@
         <h1>Cash Drop</h1>
         <p>Your character must grab as much money as possible within 1 minute!</p>
         <div class="assets-display">
-            <div><img src="Assets/Coin.png" alt="Coin"> = $1</div>
-            <div><img src="Assets/5Bill.jpg" alt="$5 Bill"> = $5</div>
-            <div><img src="Assets/10Bill.jpg" alt="$10 Bill"> = $10</div>
-            <div><img src="Assets/20Bill.jpg" alt="$20 Bill"> = $20</div>
-            <div><img src="Assets/50Bill.jpg" alt="$50 Bill"> = $50</div>
-            <div><img src="Assets/100Bill.jpg" alt="$100 Bill"> = $100</div>
-            <div><img src="Assets/Bitcoin.webp" alt="Bitcoin"> = $1000</div>
+            <div><img src="Assets/Coin.png" alt="Coin"><span>= $1</span></div>
+            <div><img src="Assets/5Bill.jpg" alt="$5 Bill"><span>= $5</span></div>
+            <div><img src="Assets/10Bill.jpg" alt="$10 Bill"><span>= $10</span></div>
+            <div><img src="Assets/20Bill.jpg" alt="$20 Bill"><span>= $20</span></div>
+            <div><img src="Assets/50Bill.jpg" alt="$50 Bill"><span>= $50</span></div>
+            <div><img src="Assets/100Bill.jpg" alt="$100 Bill"><span>= $100</span></div>
+            <div><img src="Assets/Bitcoin.webp" alt="Bitcoin"><span>= $1000</span></div>
         </div>
         <h2>Character Select</h2>
         <div class="character-select">
             <div class="character" data-character="fatman">
                 <img src="Assets/Fatman.png" alt="Fatman">
-                <p class="character-description">Fatman: Larger but slower</p>
+                <div class="attributes-container">
+                    <div class="attributes">
+                        <p>Size:</p>
+                        <div class="meter">
+                            <div class="fill" style="width: 100%;"></div>
+                        </div>
+                        <p>Speed:</p>
+                        <div class="meter">
+                            <div class="fill" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="character" data-character="girl">
                 <img src="Assets/Girl.png" alt="Girl">
-                <p class="character-description">Girl: Smaller but normal speed</p>
+                <div class="attributes-container">
+                    <div class="attributes">
+                        <p>Size:</p>
+                        <div class="meter">
+                            <div class="fill" style="width: 50%;"></div>
+                        </div>
+                        <p>Speed:</p>
+                        <div class="meter">
+                            <div class="fill" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="character" data-character="ninja">
                 <img src="Assets/Ninja.png" alt="Ninja">
-                <p class="character-description">Ninja: Normal size but faster</p>
+                <div class="attributes-container">
+                    <div class="attributes">
+                        <p>Size:</p>
+                        <div class="meter">
+                            <div class="fill" style="width: 50%;"></div>
+                        </div>
+                        <p>Speed:</p>
+                        <div class="meter">
+                            <div class="fill" style="width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <button id="startGameButton">Start Game</button>

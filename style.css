@@ -27,8 +27,9 @@ body {
 .assets-display {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* Left-align items */
     margin-bottom: 20px;
+    font-size: 1.2em; /* Make font larger */
 }
 
 .assets-display div {
@@ -42,10 +43,16 @@ body {
     margin-right: 10px;
 }
 
+.assets-display div span {
+    font-family: 'Comic Sans MS', cursive, sans-serif; /* Cartoonish font */
+    font-size: 1.5em; /* Larger font size */
+}
+
 .character-select {
     display: flex;
     justify-content: space-around;
     width: 80%;
+    margin-bottom: 20px;
 }
 
 .character {
@@ -53,15 +60,53 @@ body {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    margin: 0 10px;
+    width: 20vw; /* Ensuring all character containers are the same width */
+    min-height: 35vw; /* Ensure all character containers have the same minimum height */
 }
 
 .character img {
-    width: 10vw;
+    width: auto;
+    height: 15vw; /* Ensure consistent image height */
     margin-bottom: 10px;
 }
 
-.character-description {
-    display: none;
+.character img.selected {
+    border: 3px solid gold;
+    box-shadow: 0 0 10px gold;
+    border-radius: 5px;
+}
+
+.attributes-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Ensure all attribute containers are the same size */
+}
+
+.attributes {
+    text-align: left;
+    width: 80%; /* Set width to match container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.meter {
+    background: #444;
+    border: 1px solid #fff;
+    height: 1.5vw;
+    width: 100%; /* Fill the width of the attribute container */
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.meter .fill {
+    background: gold;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #gameContainer {

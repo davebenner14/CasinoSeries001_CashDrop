@@ -194,8 +194,8 @@ document.addEventListener('DOMContentLoaded', () => {
             player.style.width = playerSize;
             player.style.height = playerSize;
             player.style.display = 'block';
-            document.querySelectorAll('.character-description').forEach(desc => desc.style.display = 'none');
-            character.querySelector('.character-description').style.display = 'block';
+            document.querySelectorAll('.character img').forEach(img => img.classList.remove('selected'));
+            character.querySelector('img').classList.add('selected');
         });
     });
 
@@ -203,10 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const key = event.key;
         const playerRect = player.getBoundingClientRect();
 
-        if (key === 'ArrowLeft' && playerRect.left > game.getBoundingClientRect().left) {
+        if (key === 'ArrowLeft' && playerRect.left > 0) {
             player.style.left = `${player.offsetLeft - playerSpeed}px`;
         }
-        if (key === 'ArrowRight' && playerRect.right < game.getBoundingClientRect().right) {
+        if (key === 'ArrowRight' && playerRect.right < game.clientWidth) {
             player.style.left = `${player.offsetLeft + playerSpeed}px`;
         }
     });
