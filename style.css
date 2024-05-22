@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,8 +21,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     text-align: center;
+    padding-top: 40px; /* Increase top padding */
 }
 
 .title {
@@ -35,9 +37,9 @@ body {
 .assets-display {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Left-align items */
+    align-items: flex-start;
     margin-bottom: 20px;
-    font-size: 1.2em; /* Make font larger */
+    font-size: 1.2em;
 }
 
 .assets-display div {
@@ -52,8 +54,8 @@ body {
 }
 
 .assets-display div span {
-    font-family: 'Comic Sans MS', cursive, sans-serif; /* Cartoonish font */
-    font-size: 1.5em; /* Larger font size */
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    font-size: 1.5em;
 }
 
 .character-select {
@@ -69,13 +71,13 @@ body {
     align-items: center;
     cursor: pointer;
     margin: 0 10px;
-    width: 20vw; /* Ensuring all character containers are the same width */
-    min-height: 35vw; /* Ensure all character containers have the same minimum height */
+    width: 20vw;
+    min-height: 35vw;
 }
 
 .character img {
     width: auto;
-    height: 15vw; /* Ensure consistent image height */
+    height: 15vw;
     margin-bottom: 10px;
 }
 
@@ -89,12 +91,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%; /* Ensure all attribute containers are the same size */
+    width: 100%;
 }
 
 .attributes {
     text-align: left;
-    width: 80%; /* Set width to match container */
+    width: 80%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -104,7 +106,7 @@ body {
     background: #444;
     border: 1px solid #fff;
     height: 1.5vw;
-    width: 100%; /* Fill the width of the attribute container */
+    width: 100%;
     margin-bottom: 5px;
     position: relative;
 }
