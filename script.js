@@ -9,20 +9,36 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = 0;
     let gameInterval;
 
+    const billTypes = [
+        { type: '5', value: 5, frequency: 0.5, speed: 2 },
+        { type: '10', value: 10, frequency: 0.25, speed: 2 },
+        { type: '20', value: 20, frequency: 0.15, speed: 2 },
+        { type: '50', value: 50, frequency: 0.07, speed: 2 },
+        { type: '100', value: 100, frequency: 0.03, speed: 2 }
+    ];
+
     function startGame() {
         score = 0;
         updateScore();
-        gameInterval = setInterval(createFallingC, 1000);
+        gameInterval = setInterval(createFallingObject, 1000);
     }
 
     function stopGame() {
         clearInterval(gameInterval);
-        const fallingCs = document.querySelectorAll('.falling');
-        fallingCs.forEach(c => c.remove());
+        const fallingObjects = document.querySelectorAll('.falling');
+        fallingObjects.forEach(obj => obj.remove());
     }
 
     function updateScore() {
         scoreBoard.textContent = `Score: $${score}`;
+    }
+
+    function createFallingObject() {
+        if (Math.random() < 0.7) {
+            createFallingC();
+        } else {
+            createFallingBill();
+        }
     }
 
     function createFallingC() {
@@ -54,6 +70,44 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateScore();
             } else {
                 c.style.top = `${c.offsetTop + 5}px`;
+            }
+        }, 50);
+    }
+
+    function createFallingBill() {
+        const randomType = billTypes.find(bill => Math.random() < bill.frequency);
+
+        if (!randomType) return;
+
+        const bill = document.createElement('div');
+        bill.classList.add('falling');
+        bill.textContent = `$${randomType.type}`;
+        bill.style.position = 'absolute';
+        bill.style.top = '0px';
+        bill.style.left = `${Math.random() * (gameWidth - 20)}px`;
+        bill.style.fontSize = '3vw';
+        bill.style.color = 'green';
+        game.appendChild(bill);
+
+        const fallInterval = setInterval(() => {
+            const billRect = bill.getBoundingClientRect();
+            const playerRect = player.getBoundingClientRect();
+
+            if (billRect.top > game.clientHeight) {
+                clearInterval(fallInterval);
+                bill.remove();
+            } else if (
+                billRect.bottom >= playerRect.top &&
+                billRect.right >= playerRect.left &&
+                billRect.left <= playerRect.right
+            ) {
+                clearInterval(fallInterval);
+                bill.remove();
+                score += randomType.value;
+                updateScore();
+            } else {
+                bill.style.top = `${bill.offsetTop + randomType.speed}px`;
+                bill.style.left = `${bill.offsetLeft + Math.sin(Date.now() / 100) * 2}px`; // Floating effect
             }
         }, 50);
     }
