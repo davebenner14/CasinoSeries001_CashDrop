@@ -6,16 +6,79 @@ body {
     justify-content: center;
     height: 100vh;
     background-color: #222;
+    font-family: 'Arial', sans-serif;
 }
 
-#score {
+#startMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.assets-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.assets-display div {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.assets-display img {
+    width: 5vw;
+    margin-right: 10px;
+}
+
+.character-select {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+}
+
+.character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.character img {
+    width: 10vw;
+    margin-bottom: 10px;
+}
+
+.character-description {
+    display: none;
+}
+
+#gameContainer {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#score, #timer {
     font-size: 2em;
     color: gold;
     background: black;
     padding: 10px;
     border: 2px solid gold;
     margin-bottom: 10px;
-    font-family: 'Arial', sans-serif;
 }
 
 #game {
@@ -33,16 +96,11 @@ body {
     bottom: 5vh;
     left: 50%;
     transform: translateX(-50%);
-    width: 12.5vw;
-    height: 12.5vw;
-    background-color: #fff;
-    color: #000;
-    font-size: 7.5vw;
     text-align: center;
-    line-height: 12.5vw;
+    display: none;
 }
 
-#startButton {
+#startGameButton {
     padding: 10px 20px;
     font-size: 1.5em;
     cursor: pointer;

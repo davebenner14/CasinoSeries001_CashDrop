@@ -2,74 +2,115 @@ document.addEventListener('DOMContentLoaded', () => {
     const player = document.getElementById('player');
     const game = document.getElementById('game');
     const scoreBoard = document.getElementById('score');
-    const startButton = document.getElementById('startButton');
+    const timerBoard = document.getElementById('timer');
+    const startMenu = document.getElementById('startMenu');
+    const gameContainer = document.getElementById('gameContainer');
+    const startGameButton = document.getElementById('startGameButton');
+    const characters = document.querySelectorAll('.character');
     const gameWidth = game.clientWidth;
-    const playerWidth = player.clientWidth;
-    const playerSpeed = gameWidth * 0.025; // 2.5% of the game width
+    const gameHeight = game.clientHeight;
     let score = 0;
     let gameInterval;
+    let gameTimer;
+    let selectedCharacter = 'girl';
+    let playerSpeed;
+    let playerSize;
+    let timeLeft = 60;
 
     const billTypes = [
-        { type: '5', value: 5, frequency: 0.5, speed: 2 },
-        { type: '10', value: 10, frequency: 0.25, speed: 2 },
-        { type: '20', value: 20, frequency: 0.15, speed: 2 },
-        { type: '50', value: 50, frequency: 0.07, speed: 2 },
-        { type: '100', value: 100, frequency: 0.03, speed: 2 }
+        { type: '5', value: 5, frequency: 0.5, speed: 2, image: 'Assets/5Bill.jpg' },
+        { type: '10', value: 10, frequency: 0.25, speed: 2, image: 'Assets/10Bill.jpg' },
+        { type: '20', value: 20, frequency: 0.15, speed: 2, image: 'Assets/20Bill.jpg' },
+        { type: '50', value: 50, frequency: 0.07, speed: 2, image: 'Assets/50Bill.jpg' },
+        { type: '100', value: 100, frequency: 0.03, speed: 2, image: 'Assets/100Bill.jpg' }
     ];
+
+    const characterStats = {
+        'fatman': { speed: 10, size: '15vw', image: 'Assets/Fatman.png', description: 'Fatman: Larger but slower' },
+        'girl': { speed: 15, size: '7.5vw', image: 'Assets/Girl.png', description: 'Girl: Smaller but normal speed' },
+        'ninja': { speed: 20, size: '7.5vw', image: 'Assets/Ninja.png', description: 'Ninja: Normal size but faster' }
+    };
 
     function startGame() {
         score = 0;
+        timeLeft = 60;
         updateScore();
+        updateTimer();
+        gameContainer.style.display = 'block';
+        startMenu.style.display = 'none';
+        player.src = characterStats[selectedCharacter].image;
+        player.style.width = characterStats[selectedCharacter].size;
+        player.style.height = characterStats[selectedCharacter].size;
+        player.style.display = 'block';
         gameInterval = setInterval(createFallingObject, 1000);
+        gameTimer = setInterval(updateGameTimer, 1000);
     }
 
     function stopGame() {
         clearInterval(gameInterval);
+        clearInterval(gameTimer);
         const fallingObjects = document.querySelectorAll('.falling');
         fallingObjects.forEach(obj => obj.remove());
+        alert(`Game Over! Your score is: $${score}`);
+        startMenu.style.display = 'block';
+        gameContainer.style.display = 'none';
     }
 
     function updateScore() {
         scoreBoard.textContent = `Score: $${score}`;
     }
 
-    function createFallingObject() {
-        if (Math.random() < 0.7) {
-            createFallingC();
-        } else {
-            createFallingBill();
+    function updateTimer() {
+        timerBoard.textContent = `Time: ${timeLeft}s`;
+    }
+
+    function updateGameTimer() {
+        timeLeft--;
+        updateTimer();
+        if (timeLeft <= 0) {
+            stopGame();
         }
     }
 
-    function createFallingC() {
-        const c = document.createElement('div');
-        c.classList.add('falling');
-        c.textContent = 'C';
-        c.style.position = 'absolute';
-        c.style.top = '0px';
-        c.style.left = `${Math.random() * (gameWidth - 20)}px`;
-        c.style.fontSize = '3vw';
-        c.style.color = 'gold';
-        game.appendChild(c);
+    function createFallingObject() {
+        const randomNum = Math.random();
+        if (randomNum < 0.6) {
+            createFallingCoin();
+        } else if (randomNum < 0.95) {
+            createFallingBill();
+        } else {
+            createFallingBitcoin();
+        }
+    }
+
+    function createFallingCoin() {
+        const coin = document.createElement('img');
+        coin.src = 'Assets/Coin.png';
+        coin.classList.add('falling');
+        coin.style.position = 'absolute';
+        coin.style.top = '0px';
+        coin.style.left = `${Math.random() * (game.clientWidth - 30)}px`;
+        coin.style.width = '3vw';
+        game.appendChild(coin);
 
         const fallInterval = setInterval(() => {
-            const cRect = c.getBoundingClientRect();
+            const coinRect = coin.getBoundingClientRect();
             const playerRect = player.getBoundingClientRect();
 
-            if (cRect.top > game.clientHeight) {
+            if (coinRect.top > game.clientHeight) {
                 clearInterval(fallInterval);
-                c.remove();
+                coin.remove();
             } else if (
-                cRect.bottom >= playerRect.top &&
-                cRect.right >= playerRect.left &&
-                cRect.left <= playerRect.right
+                coinRect.bottom >= playerRect.top &&
+                coinRect.right >= playerRect.left &&
+                coinRect.left <= playerRect.right
             ) {
                 clearInterval(fallInterval);
-                c.remove();
+                coin.remove();
                 score++;
                 updateScore();
             } else {
-                c.style.top = `${c.offsetTop + 5}px`;
+                coin.style.top = `${coin.offsetTop + 5}px`;
             }
         }, 50);
     }
@@ -79,14 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!randomType) return;
 
-        const bill = document.createElement('div');
+        const bill = document.createElement('img');
+        bill.src = randomType.image;
         bill.classList.add('falling');
-        bill.textContent = `$${randomType.type}`;
         bill.style.position = 'absolute';
         bill.style.top = '0px';
-        bill.style.left = `${Math.random() * (gameWidth - 20)}px`;
-        bill.style.fontSize = '3vw';
-        bill.style.color = 'green';
+        bill.style.left = `${Math.random() * (game.clientWidth - 30)}px`;
+        bill.style.width = '5vw';
         game.appendChild(bill);
 
         const fallInterval = setInterval(() => {
@@ -112,6 +152,53 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 50);
     }
 
+    function createFallingBitcoin() {
+        const bitcoin = document.createElement('img');
+        bitcoin.src = 'Assets/Bitcoin.webp';
+        bitcoin.classList.add('falling');
+        bitcoin.style.position = 'absolute';
+        bitcoin.style.top = '0px';
+        bitcoin.style.left = `${Math.random() * (game.clientWidth - 30)}px`;
+        bitcoin.style.width = '3vw';
+        game.appendChild(bitcoin);
+
+        const fallInterval = setInterval(() => {
+            const bitcoinRect = bitcoin.getBoundingClientRect();
+            const playerRect = player.getBoundingClientRect();
+
+            if (bitcoinRect.top > game.clientHeight) {
+                clearInterval(fallInterval);
+                bitcoin.remove();
+            } else if (
+                bitcoinRect.bottom >= playerRect.top &&
+                bitcoinRect.right >= playerRect.left &&
+                bitcoinRect.left <= playerRect.right
+            ) {
+                clearInterval(fallInterval);
+                bitcoin.remove();
+                score += 1000;
+                updateScore();
+            } else {
+                bitcoin.style.top = `${bitcoin.offsetTop + 15}px`; // Faster falling speed
+            }
+        }, 50);
+    }
+
+    characters.forEach(character => {
+        character.addEventListener('click', (event) => {
+            const selected = character.getAttribute('data-character');
+            selectedCharacter = selected;
+            playerSpeed = characterStats[selected].speed;
+            playerSize = characterStats[selected].size;
+            player.src = characterStats[selected].image;
+            player.style.width = playerSize;
+            player.style.height = playerSize;
+            player.style.display = 'block';
+            document.querySelectorAll('.character-description').forEach(desc => desc.style.display = 'none');
+            character.querySelector('.character-description').style.display = 'block';
+        });
+    });
+
     document.addEventListener('keydown', (event) => {
         const key = event.key;
         const playerRect = player.getBoundingClientRect();
@@ -124,8 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    startButton.addEventListener('click', () => {
-        stopGame();
+    startGameButton.addEventListener('click', () => {
         startGame();
     });
 });
