@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameContainer = document.getElementById('gameContainer');
     const startGameButton = document.getElementById('startGameButton');
     const characters = document.querySelectorAll('.character');
-    const gameWidth = game.clientWidth;
-    const gameHeight = game.clientHeight;
     let score = 0;
     let gameInterval;
     let gameTimer;
@@ -42,6 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
         player.style.width = characterStats[selectedCharacter].size;
         player.style.height = characterStats[selectedCharacter].size;
         player.style.display = 'block';
+        player.style.left = '50%'; // Reset player position
+        player.style.transform = 'translateX(-50%)'; // Center the player
         gameInterval = setInterval(createFallingObject, 1000);
         gameTimer = setInterval(updateGameTimer, 1000);
     }
@@ -202,12 +202,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (event) => {
         const key = event.key;
         const playerRect = player.getBoundingClientRect();
+        const gameRect = game.getBoundingClientRect(); // Get game container's bounding rect
 
-        if (key === 'ArrowLeft' && playerRect.left > 0) {
-            player.style.left = `${player.offsetLeft - playerSpeed}px`;
+        // Adjust boundaries to allow full movement within the game container
+        if (key === 'ArrowLeft' && playerRect.left > gameRect.left) {
+            player.style.left = `${Math.max(0, player.offsetLeft - playerSpeed)}px`;
         }
-        if (key === 'ArrowRight' && playerRect.right < game.clientWidth) {
-            player.style.left = `${player.offsetLeft + playerSpeed}px`;
+        if (key === 'ArrowRight' && playerRect.right < gameRect.right) {
+            player.style.left = `${Math.min(game.clientWidth - player.clientWidth, player.offsetLeft + playerSpeed)}px`;
         }
     });
 

@@ -23,7 +23,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     text-align: center;
-    padding-top: 40px; /* Increase top padding */
+    padding-top: 40px;
 }
 
 .title {
