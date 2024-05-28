@@ -8,8 +8,8 @@ body {
     min-height: 100vh;
     background-color: #222;
     font-family: 'Arial', sans-serif;
-    overflow-x: hidden; 
-    overflow-y: auto; 
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #startMenu {
@@ -19,7 +19,7 @@ body {
     width: 100%;
     min-height: 100%;
     background: url('Assets/TitleBackground.png') no-repeat center top;
-    background-size: 80% auto; 
+    background-size: 80% auto;
     color: white;
     display: flex;
     flex-direction: column;
@@ -27,9 +27,9 @@ body {
     justify-content: flex-start;
     text-align: center;
     padding-top: 40px;
-    padding-bottom: 40px; 
+    padding-bottom: 40px;
     box-sizing: border-box;
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 .title {
@@ -154,7 +154,7 @@ body {
 
 #player {
     position: absolute;
-    bottom: 0; 
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -165,4 +165,14 @@ body {
     padding: 10px 20px;
     font-size: 1.5em;
     cursor: pointer;
+}
+#bird {
+    position: absolute;
+    top: 0;
+    width: 10vw;
+}
+
+#bonus {
+    position: absolute;
+    width: 5vw;
 }
