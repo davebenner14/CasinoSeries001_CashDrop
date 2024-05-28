@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const characterStats = {
-        'fatman': { speed: 10, size: '15vw', image: 'Assets/Fatman.png', description: 'Fatman: Larger but slower' },
-        'girl': { speed: 15, size: '7.5vw', image: 'Assets/Girl.png', description: 'Girl: Smaller but normal speed' },
-        'ninja': { speed: 20, size: '7.5vw', image: 'Assets/Ninja.png', description: 'Ninja: Normal size but faster' }
+        'fatman': { speed: 12, size: '17vw', image: 'Assets/Fatman.png', description: 'Fatman: Larger but slower' },
+        'girl': { speed: 18, size: '10vw', image: 'Assets/Girl.png', description: 'Girl: Smaller but normal speed' },
+        'ninja': { speed: 22, size: '6.5vw', image: 'Assets/Ninja.png', description: 'Ninja: Normal size but faster' }
     };
 
     function startGame() {
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         player.style.height = characterStats[selectedCharacter].size;
         player.style.display = 'block';
         player.style.left = '50%'; // Reset player position
+        player.style.bottom = '0'; // Ensure player is at the bottom
         player.style.transform = 'translateX(-50%)'; // Center the player
         gameInterval = setInterval(createFallingObject, 1000);
         gameTimer = setInterval(updateGameTimer, 1000);
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const coinRect = coin.getBoundingClientRect();
             const playerRect = player.getBoundingClientRect();
 
-            if (coinRect.top > game.clientHeight) {
+            if (coinRect.top > game.clientHeight - coin.clientHeight) {
                 clearInterval(fallInterval);
                 coin.remove();
             } else if (
@@ -133,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const billRect = bill.getBoundingClientRect();
             const playerRect = player.getBoundingClientRect();
 
-            if (billRect.top > game.clientHeight) {
+            if (billRect.top > game.clientHeight - bill.clientHeight) {
                 clearInterval(fallInterval);
                 bill.remove();
             } else if (
@@ -166,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const bitcoinRect = bitcoin.getBoundingClientRect();
             const playerRect = player.getBoundingClientRect();
 
-            if (bitcoinRect.top > game.clientHeight) {
+            if (bitcoinRect.top > game.clientHeight - bitcoin.clientHeight) {
                 clearInterval(fallInterval);
                 bitcoin.remove();
             } else if (
