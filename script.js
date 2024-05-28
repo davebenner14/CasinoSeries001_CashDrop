@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         coin.src = 'Assets/Coin.png';
         coin.classList.add('falling');
         coin.style.position = 'absolute';
-        coin.style.top = '0px';
+        coin.style.top = '-50px'; // Start falling from higher up
         coin.style.left = `${Math.random() * (game.clientWidth - 30)}px`;
         coin.style.width = '3vw';
         game.appendChild(coin);
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const coinRect = coin.getBoundingClientRect();
             const playerRect = player.getBoundingClientRect();
 
-            if (coinRect.top > game.clientHeight - coin.clientHeight) {
+            if (coinRect.top > game.clientHeight + 100) { // Allow it to fall further down
                 clearInterval(fallInterval);
                 coin.remove();
             } else if (
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bill.src = randomType.image;
         bill.classList.add('falling');
         bill.style.position = 'absolute';
-        bill.style.top = '0px';
+        bill.style.top = '-50px'; // Start falling from higher up
         bill.style.left = `${Math.random() * (game.clientWidth - 30)}px`;
         bill.style.width = '5vw';
         game.appendChild(bill);
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const billRect = bill.getBoundingClientRect();
             const playerRect = player.getBoundingClientRect();
 
-            if (billRect.top > game.clientHeight - bill.clientHeight) {
+            if (billRect.top > game.clientHeight + 100) { // Allow it to fall further down
                 clearInterval(fallInterval);
                 bill.remove();
             } else if (
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bitcoin.src = 'Assets/Bitcoin.webp';
         bitcoin.classList.add('falling');
         bitcoin.style.position = 'absolute';
-        bitcoin.style.top = '0px';
+        bitcoin.style.top = '-50px'; // Start falling from higher up
         bitcoin.style.left = `${Math.random() * (game.clientWidth - 30)}px`;
         bitcoin.style.width = '3vw';
         game.appendChild(bitcoin);
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const bitcoinRect = bitcoin.getBoundingClientRect();
             const playerRect = player.getBoundingClientRect();
 
-            if (bitcoinRect.top > game.clientHeight - bitcoin.clientHeight) {
+            if (bitcoinRect.top > game.clientHeight + 100) { // Allow it to fall further down
                 clearInterval(fallInterval);
                 bitcoin.remove();
             } else if (
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 score += 1000;
                 updateScore();
             } else {
-                bitcoin.style.top = `${bitcoin.offsetTop + 15}px`; // Faster falling speed
+                bitcoin.style.top = `${bitcoin.offsetTop + 15}px`;
             }
         }, 50);
     }
