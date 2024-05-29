@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const gameContainer = document.getElementById('gameContainer');
     const startGameButton = document.getElementById('startGameButton');
     const characters = document.querySelectorAll('.character');
-    const bird = document.getElementById('bird');
+    const speedMeter = document.getElementById('speedMeter');
     let score = 0;
     let gameInterval;
     let gameTimer;
@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let bitcoinsCollected = 0;
     let bonusesCollected = 0;
     let bonusActive = false;
+    let bonusQueue = [];
+    let scoreMultiplier = 1;
 
     const billTypes = [
         { type: '5', value: 5, frequency: 0.3, speed: 2, image: 'Assets/5Bill.jpg' },
@@ -30,18 +32,22 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const characterStats = {
-        'fatman': { speed: 12, size: '17vw', image: 'Assets/Fatman.png', description: 'Fatman: Larger but slower' },
-        'girl': { speed: 18, size: '10vw', image: 'Assets/Girl.png', description: 'Girl: Smaller but normal speed' },
-        'ninja': { speed: 22, size: '6.5vw', image: 'Assets/Ninja.png', description: 'Ninja: Normal size but faster' }
+        'fatman': { speed: 5, size: '17vw', image: 'Assets/Fatman.png', description: 'Fatman: Larger but slower', initialSpeed: 1 },
+        'girl': { speed: 8, size: '10vw', image: 'Assets/Girl.png', description: 'Girl: Smaller but normal speed', initialSpeed: 2 },
+        'ninja': { speed: 12, size: '6.5vw', image: 'Assets/Ninja.png', description: 'Ninja: Normal size but faster', initialSpeed: 3 }
     };
 
     const bonusTypes = [
-        { type: 'speed', image: 'Assets/SpeedUp.png', effect: () => playerSpeed += 5 },
+        { type: 'speed', image: 'Assets/SpeedUp.png', effect: increaseSpeed },
         { type: 'time', image: 'Assets/TimeUp.png', effect: () => timeLeft += 30 },
-        { type: '2x', image: 'Assets/2x.png', effect: () => scoreMultiplier = 2 },
-        { type: '3x', image: 'Assets/3x.png', effect: () => scoreMultiplier = 3 }
+        { type: '2x', image: 'Assets/2x.png', effect: () => score *= 2 },
+        { type: '3x', image: 'Assets/3x.png', effect: () => score *= 3 }
     ];
-    let scoreMultiplier = 1;
+
+    function increaseSpeed() {
+        playerSpeed += 3;
+        updateSpeedMeter();
+    }
 
     function startGame() {
         score = 0;
@@ -52,8 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
         bonusesCollected = 0;
         bonusActive = false;
         scoreMultiplier = 1;
+        bonusQueue = [];
+        playerSpeed = characterStats[selectedCharacter].speed;
         updateScore();
         updateTimer();
+        updateSpeedMeter();
         gameContainer.style.display = 'block';
         startMenu.style.display = 'none';
         player.src = characterStats[selectedCharacter].image;
@@ -107,6 +116,23 @@ document.addEventListener('DOMContentLoaded', () => {
         if (timeLeft <= 0) {
             stopGame();
         }
+    }
+
+    function updateSpeedMeter() {
+        const initialSpeed = characterStats[selectedCharacter].initialSpeed;
+        const speedBars = Math.floor(playerSpeed / initialSpeed);
+        speedMeter.innerHTML = '';
+        for (let i = 0; i < speedBars; i++) {
+            const bar = document.createElement('div');
+            bar.classList.add('speed-bar');
+            bar.style.backgroundColor = getColorForSpeed(i);
+            speedMeter.appendChild(bar);
+        }
+    }
+
+    function getColorForSpeed(index) {
+        const colors = ['green', 'green', 'yellow', 'yellow', 'red', 'red'];
+        return colors[Math.min(index, colors.length - 1)];
     }
 
     function createFallingObject() {
@@ -228,53 +254,86 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkForBonus() {
-        if (!bonusActive) {
-            if (coinsCollected >= 5 || billsCollected >= 5 || bitcoinsCollected >= 2) {
-                triggerBonus();
-            }
+        if (coinsCollected >= 5 || billsCollected >= 5 || bitcoinsCollected >= 2) {
+            bonusQueue.push({ coins: coinsCollected, bills: billsCollected, bitcoins: bitcoinsCollected });
+            coinsCollected = 0;
+            billsCollected = 0;
+            bitcoinsCollected = 0;
+            processBonusQueue();
         }
     }
 
-    function triggerBonus() {
-        bonusActive = true;
-        bird.style.display = 'block';
+    function processBonusQueue() {
+        if (bonusQueue.length > 0) {
+            const bonusData = bonusQueue.shift();
+            triggerBonus(bonusData);
+            processBonusQueue();
+        }
+    }
+
+    function triggerBonus(bonusData) {
+        const bird = document.createElement('img');
+        bird.src = 'Assets/Bird.png';
+        bird.classList.add('bird');
+        bird.style.position = 'absolute';
+        bird.style.top = '0';
         bird.style.left = '-10vw';
+        game.appendChild(bird);
+        
         const direction = Math.random() > 0.5 ? 1 : -1;
         const targetX = Math.random() * (game.clientWidth - bird.clientWidth);
 
         const birdInterval = setInterval(() => {
             const currentX = parseFloat(bird.style.left);
-            if ((direction === 1 && currentX >= targetX) || (direction === -1 && currentX <= targetX)) {
+            const newX = currentX + direction * 5;
+            bird.style.left = `${newX}px`;
+            if ((direction === 1 && newX > game.clientWidth) || (direction === -1 && newX < -bird.clientWidth)) {
                 clearInterval(birdInterval);
-                setTimeout(() => dropBonus(), 1000);
-            } else {
-                bird.style.left = `${currentX + direction * 5}px`;
+                bird.remove();
+            }
+        }, 50);
+
+        const dropInterval = setInterval(() => {
+            if (Math.random() < 0.02) {
+                clearInterval(dropInterval);
+                dropBonus(targetX);
             }
         }, 50);
     }
 
-    function dropBonus() {
-        bird.style.display = 'none';
+    function dropBonus(targetX) {
         const bonusType = bonusTypes[Math.floor(Math.random() * bonusTypes.length)];
         const bonus = document.createElement('img');
         bonus.src = bonusType.image;
-        bonus.id = 'bonus';
-        bonus.style.left = `${parseFloat(bird.style.left) + bird.clientWidth / 2}px`;
-        bonus.style.top = `${bird.clientHeight}px`;
+        bonus.classList.add('falling');
+        bonus.style.position = 'absolute';
+        bonus.style.top = '50px';
+        bonus.style.left = `${targetX}px`;
+        bonus.style.width = '5vw';
         game.appendChild(bonus);
 
-        setTimeout(() => {
-            bonus.remove();
-            bonusType.effect();
-            resetCounters();
-            bonusActive = false;
-        }, 2000);
-    }
+        const fallInterval = setInterval(() => {
+            const bonusRect = bonus.getBoundingClientRect();
+            const playerRect = player.getBoundingClientRect();
 
-    function resetCounters() {
-        coinsCollected = 0;
-        billsCollected = 0;
-        bitcoinsCollected = 0;
+            if (bonusRect.top > game.clientHeight + 100) {
+                clearInterval(fallInterval);
+                bonus.remove();
+                processBonusQueue();
+            } else if (
+                bonusRect.bottom >= playerRect.top &&
+                bonusRect.right >= playerRect.left &&
+                bonusRect.left <= playerRect.right
+            ) {
+                clearInterval(fallInterval);
+                bonus.remove();
+                bonusType.effect();
+                updateScore();
+                processBonusQueue();
+            } else {
+                bonus.style.top = `${bonus.offsetTop + 5}px`;
+            }
+        }, 50);
     }
 
     characters.forEach(character => {
@@ -287,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
             player.style.width = playerSize;
             player.style.height = playerSize;
             player.style.display = 'block';
+            updateSpeedMeter();
             document.querySelectorAll('.character img').forEach(img => img.classList.remove('selected'));
             character.querySelector('img').classList.add('selected');
         });

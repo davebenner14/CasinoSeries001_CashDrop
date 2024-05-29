@@ -133,13 +133,34 @@ body {
     height: 100vh;
 }
 
-#score, #timer {
+#score, #timer, #speedMeterContainer {
     font-size: 2em;
     color: gold;
     background: black;
     padding: 10px;
     border: 2px solid gold;
     margin-bottom: 10px;
+}
+
+#speedMeterContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#speedMeterContainer p {
+    margin: 0;
+    margin-right: 10px;
+}
+
+#speedMeter {
+    display: flex;
+    gap: 2px;
+}
+
+.speed-bar {
+    width: 10px;
+    height: 20px;
 }
 
 #game {
@@ -165,14 +186,4 @@ body {
     padding: 10px 20px;
     font-size: 1.5em;
     cursor: pointer;
-}
-#bird {
-    position: absolute;
-    top: 0;
-    width: 10vw;
-}
-
-#bonus {
-    position: absolute;
-    width: 5vw;
 }
