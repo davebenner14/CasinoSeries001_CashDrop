@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startMenu = document.getElementById('startMenu');
     const gameContainer = document.getElementById('gameContainer');
     const startGameButton = document.getElementById('startGameButton');
+    const musicToggleButton = document.getElementById('musicToggleButton');
     const characters = document.querySelectorAll('.character');
     const speedMeter = document.getElementById('speedMeter');
     let score = 0;
@@ -40,9 +41,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const bonusTypes = [
         { type: 'speed', image: 'Assets/SpeedUp.png', effect: increaseSpeed },
         { type: 'time', image: 'Assets/TimeUp.png', effect: () => timeLeft += 30 },
-        { type: '2x', image: 'Assets/2x.png', effect: () => score *= 2 },
-        { type: '3x', image: 'Assets/3x.png', effect: () => score *= 3 }
+        { type: '2000', image: 'Assets/2x.png', effect: () => score += 2000 },
+        { type: '3000', image: 'Assets/3x.png', effect: () => score += 3000 }
     ];
+
+    const songs = [
+        new Audio('Assets/Algar_-_Come_to_beatbox!.mp3'),
+        new Audio('Assets/Dubmood_You_Can_Do_It_(but_not_like_we_do_it)_feat_Zabutom_(2003).mp3'),
+        new Audio('Assets/Keygen_8_-_Dubmood.mp3')
+    ];
+    let currentSongIndex = 0;
+    let isMusicPlaying = true;
+
+    function playRandomSong() {
+        songs[currentSongIndex].pause();
+        currentSongIndex = Math.floor(Math.random() * songs.length);
+        songs[currentSongIndex].play();
+        songs[currentSongIndex].loop = true;
+    }
+
+    function toggleMusic() {
+        if (isMusicPlaying) {
+            songs[currentSongIndex].pause();
+        } else {
+            playRandomSong();
+        }
+        isMusicPlaying = !isMusicPlaying;
+    }
+
+    musicToggleButton.addEventListener('click', toggleMusic);
 
     function increaseSpeed() {
         playerSpeed += 3;
@@ -74,6 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
         player.style.transform = 'translateX(-50%)';
         gameInterval = setInterval(createFallingObject, 500);
         gameTimer = setInterval(updateGameTimer, 1000);
+        playRandomSong();
     }
 
     function stopGame() {
@@ -85,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resetCharacterSelect();
         startMenu.style.display = 'block';
         gameContainer.style.display = 'none';
+        songs[currentSongIndex].pause();
     }
 
     function resetCharacterSelect() {
