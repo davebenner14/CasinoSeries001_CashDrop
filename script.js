@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let bonusActive = false;
     let bonusQueue = [];
     let scoreMultiplier = 1;
+    let moveDirection = null;
+    let moveInterval;
 
     const billTypes = [
         { type: '5', value: 5, frequency: 0.3, speed: 2, image: 'Assets/5Bill.jpg' },
@@ -108,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function stopGame() {
         clearInterval(gameInterval);
         clearInterval(gameTimer);
+        clearInterval(moveInterval);
         const fallingObjects = document.querySelectorAll('.falling');
         fallingObjects.forEach(obj => obj.remove());
         alert(`Game Over! Your score is: $${score}`);
@@ -316,8 +319,9 @@ document.addEventListener('DOMContentLoaded', () => {
         bird.style.position = 'absolute';
         bird.style.top = '0';
         bird.style.left = '-10vw';
+        bird.style.width = '5vw'; // Default width for desktop
         game.appendChild(bird);
-        
+
         const direction = Math.random() > 0.5 ? 1 : -1;
         const targetX = Math.random() * (game.clientWidth - bird.clientWidth);
 
@@ -402,17 +406,70 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    game.addEventListener('click', (event) => {
+    game.addEventListener('mousedown', (event) => {
         const playerRect = player.getBoundingClientRect();
         const clickX = event.clientX;
         const playerCenterX = playerRect.left + playerRect.width / 2;
 
         if (clickX < playerCenterX) {
-            movePlayerLeft();
+            moveDirection = 'left';
         } else {
+            moveDirection = 'right';
+        }
+
+        movePlayer();  // Move the player once on mousedown
+
+        moveInterval = setInterval(() => {
+            movePlayer();
+        }, 50);
+    });
+
+    game.addEventListener('mouseup', () => {
+        clearInterval(moveInterval);
+        moveDirection = null;
+    });
+
+    game.addEventListener('mouseleave', () => {
+        clearInterval(moveInterval);
+        moveDirection = null;
+    });
+
+    // Add touch event listeners for mobile compatibility
+    game.addEventListener('touchstart', (event) => {
+        const touchX = event.touches[0].clientX;
+        const playerRect = player.getBoundingClientRect();
+        const playerCenterX = playerRect.left + playerRect.width / 2;
+
+        if (touchX < playerCenterX) {
+            moveDirection = 'left';
+        } else {
+            moveDirection = 'right';
+        }
+
+        movePlayer();  // Move the player once on touchstart
+
+        moveInterval = setInterval(() => {
+            movePlayer();
+        }, 50);
+    });
+
+    game.addEventListener('touchend', () => {
+        clearInterval(moveInterval);
+        moveDirection = null;
+    });
+
+    game.addEventListener('touchcancel', () => {
+        clearInterval(moveInterval);
+        moveDirection = null;
+    });
+
+    function movePlayer() {
+        if (moveDirection === 'left') {
+            movePlayerLeft();
+        } else if (moveDirection === 'right') {
             movePlayerRight();
         }
-    });
+    }
 
     function movePlayerLeft() {
         const playerRect = player.getBoundingClientRect();
