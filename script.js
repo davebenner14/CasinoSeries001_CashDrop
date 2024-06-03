@@ -112,7 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
         fallingObjects.forEach(obj => obj.remove());
         alert(`Game Over! Your score is: $${score}`);
         resetCharacterSelect();
-        startMenu.style.display = 'block';
+        resetGame();
+        startMenu.style.display = 'flex';  
+        startMenu.style.flexDirection = 'column';  
+        startMenu.style.alignItems = 'center';  
+        startMenu.style.justifyContent = 'flex-start';  
         gameContainer.style.display = 'none';
         songs[currentSongIndex].pause();
     }
@@ -121,15 +125,19 @@ document.addEventListener('DOMContentLoaded', () => {
         characters.forEach(character => {
             const img = character.querySelector('img');
             img.classList.remove('selected');
-            img.style.width = '';
-            img.style.height = '';
-            img.style.display = '';
         });
         selectedCharacter = 'girl';
         playerSpeed = characterStats[selectedCharacter].speed;
-        player.style.width = characterStats[selectedCharacter].size;
-        player.style.height = characterStats[selectedCharacter].size;
         updateSpeedMeter();
+    }
+
+    function resetGame() {
+        player.style.display = 'none';
+        player.style.width = '';
+        player.style.height = '';
+        player.style.left = '';
+        player.style.bottom = '';
+        player.style.transform = '';
     }
 
     function updateScore() {
@@ -384,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const key = event.key;
         const playerRect = player.getBoundingClientRect();
         const gameRect = game.getBoundingClientRect();
-        const buffer = game.clientWidth * 0.05;
+        const buffer = game.clientWidth * 0.1;  // Allow player to move further outside the game boundaries
 
         if (key === 'ArrowLeft' && playerRect.left > gameRect.left - buffer) {
             player.style.left = `${Math.max(-buffer, player.offsetLeft - playerSpeed)}px`;
@@ -393,6 +401,38 @@ document.addEventListener('DOMContentLoaded', () => {
             player.style.left = `${Math.min(game.clientWidth - player.clientWidth + buffer, player.offsetLeft + playerSpeed)}px`;
         }
     });
+
+    game.addEventListener('click', (event) => {
+        const playerRect = player.getBoundingClientRect();
+        const clickX = event.clientX;
+        const playerCenterX = playerRect.left + playerRect.width / 2;
+
+        if (clickX < playerCenterX) {
+            movePlayerLeft();
+        } else {
+            movePlayerRight();
+        }
+    });
+
+    function movePlayerLeft() {
+        const playerRect = player.getBoundingClientRect();
+        const gameRect = game.getBoundingClientRect();
+        const buffer = game.clientWidth * 0.1;  // Allow player to move further outside the game boundaries
+
+        if (playerRect.left > gameRect.left - buffer) {
+            player.style.left = `${Math.max(-buffer, player.offsetLeft - playerSpeed)}px`;
+        }
+    }
+
+    function movePlayerRight() {
+        const playerRect = player.getBoundingClientRect();
+        const gameRect = game.getBoundingClientRect();
+        const buffer = game.clientWidth * 0.1;  // Allow player to move further outside the game boundaries
+
+        if (playerRect.right < gameRect.right + buffer) {
+            player.style.left = `${Math.min(game.clientWidth - player.clientWidth + buffer, player.offsetLeft + playerSpeed)}px`;
+        }
+    }
 
     startGameButton.addEventListener('click', () => {
         startGame();
