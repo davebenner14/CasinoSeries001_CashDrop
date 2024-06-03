@@ -150,50 +150,71 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 80vw;
     height: 100vh;
 }
 
 #scoreTimerContainer {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    align-items: center;
+    width: 100%;
     font-size: 2em;
     color: gold;
     background: black;
     padding: 10px;
     border: 2px solid gold;
     margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+#score, #timer {
+    flex: 1;
+    text-align: center;
 }
 
 #speedMeterContainer {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    background: black;
+    border: 2px solid gold;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
 #speedMeterContainer p {
     margin: 0;
     margin-right: 10px;
+    color: white;
+    font-size: 1.5em;
 }
 
 #speedMeter {
     display: flex;
     gap: 2px;
+    flex: 1;
+    height: 20px;
+    background: #222;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .speed-bar {
-    width: 10px;
-    height: 20px;
+    flex: 1;
 }
 
 #game {
     position: relative;
-    width: 80vw;
+    width: 100%;
     height: 80vh;
     background-color: #333;
     overflow: hidden;
     border: 2px solid #fff;
     margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 #player {
@@ -206,9 +227,26 @@ body {
 }
 
 #startGameButton {
-    padding: 10px 20px;
+    padding: 15px 30px;
     font-size: 1.5em;
     cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px #999;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+#startGameButton:hover {
+    background-color: #45a049;
+}
+
+#startGameButton:active {
+    background-color: #3e8e41;
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
 }
 
 #musicToggleButton {

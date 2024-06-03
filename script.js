@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameTimer;
     let selectedCharacter = 'girl';
     let playerSpeed;
-    let playerSize;
     let timeLeft = 60;
     let coinsCollected = 0;
     let billsCollected = 0;
@@ -33,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const characterStats = {
-        'fatman': { speed: 5, size: '17vw', image: 'Assets/Fatman.png', description: 'Fatman: Larger but slower', initialSpeed: 1 },
-        'girl': { speed: 8, size: '10vw', image: 'Assets/Girl.png', description: 'Girl: Smaller but normal speed', initialSpeed: 2 },
-        'ninja': { speed: 12, size: '6.5vw', image: 'Assets/Ninja.png', description: 'Ninja: Normal size but faster', initialSpeed: 3 }
+        'fatman': { speed: 1, size: '17vw', image: 'Assets/Fatman.png', description: 'Fatman: Larger but slower', initialSpeed: 1 },
+        'girl': { speed: 3, size: '10vw', image: 'Assets/Girl.png', description: 'Girl: Smaller but normal speed', initialSpeed: 3 },
+        'ninja': { speed: 4, size: '6.5vw', image: 'Assets/Ninja.png', description: 'Ninja: Normal size but faster', initialSpeed: 4 }
     };
 
     const bonusTypes = [
@@ -72,7 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
     musicToggleButton.addEventListener('click', toggleMusic);
 
     function increaseSpeed() {
-        playerSpeed += 3;
+        if (playerSpeed < 10) {
+            playerSpeed += 1;
+        }
         updateSpeedMeter();
     }
 
@@ -126,9 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         selectedCharacter = 'girl';
         playerSpeed = characterStats[selectedCharacter].speed;
-        playerSize = characterStats[selectedCharacter].size;
-        player.style.width = playerSize;
-        player.style.height = playerSize;
+        player.style.width = characterStats[selectedCharacter].size;
+        player.style.height = characterStats[selectedCharacter].size;
+        updateSpeedMeter();
     }
 
     function updateScore() {
@@ -148,20 +149,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateSpeedMeter() {
-        const initialSpeed = characterStats[selectedCharacter].initialSpeed;
-        const speedBars = Math.floor(playerSpeed / initialSpeed);
+        const maxSpeed = 10;
         speedMeter.innerHTML = '';
-        for (let i = 0; i < speedBars; i++) {
+        for (let i = 1; i <= maxSpeed; i++) {
             const bar = document.createElement('div');
             bar.classList.add('speed-bar');
-            bar.style.backgroundColor = getColorForSpeed(i);
+            bar.style.backgroundColor = i <= playerSpeed ? getSpeedColor(i) : '#333';
             speedMeter.appendChild(bar);
         }
     }
 
-    function getColorForSpeed(index) {
-        const colors = ['green', 'green', 'yellow', 'yellow', 'red', 'red'];
-        return colors[Math.min(index, colors.length - 1)];
+    function getSpeedColor(speed) {
+        if (speed <= 3) return 'green';
+        if (speed <= 6) return 'yellow';
+        return 'red';
     }
 
     function createFallingObject() {
@@ -370,11 +371,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const selected = character.getAttribute('data-character');
             selectedCharacter = selected;
             playerSpeed = characterStats[selected].speed;
-            playerSize = characterStats[selected].size;
+            player.style.width = characterStats[selected].size;
+            player.style.height = characterStats[selected].size;
             player.src = characterStats[selected].image;
-            player.style.width = playerSize;
-            player.style.height = playerSize;
-            player.style.display = 'block';
             updateSpeedMeter();
             document.querySelectorAll('.character img').forEach(img => img.classList.remove('selected'));
             character.querySelector('img').classList.add('selected');
