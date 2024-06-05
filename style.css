@@ -267,6 +267,70 @@ body {
     margin-right: 10px;
 }
 
+.hidden {
+    display: none;
+}
+
+#highScoreContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#highScoreContainer h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#highScoreList {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+#highScoreList li {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+#newHighScoreForm {
+    margin-top: 20px;
+}
+
+#newHighScoreForm input {
+    font-size: 1em;
+    padding: 5px;
+    margin-top: 10px;
+}
+
+#newHighScoreForm button {
+    font-size: 1em;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#backToMenuButton {
+    font-size: 1em;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #444;
+    color: white;
+    border: 2px solid gold;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
 
 @media (max-width: 600px) {
     .bird {

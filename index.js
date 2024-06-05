@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicToggleButton = document.getElementById('musicToggleButton');
     const characters = document.querySelectorAll('.character');
     const speedMeter = document.getElementById('speedMeter');
+    const characterSelectMessage = document.getElementById('characterSelectMessage');
     let score = 0;
     let gameInterval;
     let gameTimer;
@@ -389,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateSpeedMeter();
             document.querySelectorAll('.character img').forEach(img => img.classList.remove('selected'));
             character.querySelector('img').classList.add('selected');
+            characterSelectMessage.classList.add('hidden'); // Hide message on character select
         });
     });
 
