@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnc4OTZ4dTBkeWtyeHg3aWlmc284MTZlcHE4aWtybXVkbm8yYzQ1OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RIjpA5lY1i1RaXx9rS/giphy.gif" width="60" height="60">
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnc4OTZ4dTBkeWtyeHg3aWlmc284MTZlcHE4aWtybXVkbm8yYzQ1OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RIjpA5lY1i1RaXx9rS/giphy.gif" width="300" height="300">
   <h1 style="display:inline;"><b>CasinoSeries001 Cash Drop</b></h1>
-  <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2ZiaHdzYWcwb2llcXZyZnJqdjVnajQyZzRzOWt5OG9xb2R5czZxdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/67ThRZlYBvibtdF9JH/giphy.gif" width="60" height="60">
+  <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2ZiaHdzYWcwb2llcXZyZnJqdjVnajQyZzRzOWt5OG9xb2R5czZxdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/67ThRZlYBvibtdF9JH/giphy.gif" width="300" height="300">
 </p>
 
 CasinoSeries001 Cash Drop is an engaging web-based game where players control a character to catch as much money as possible within one minute. Featuring dynamic character selection, various collectible items, and an exciting bonus system, the game provides a fun and competitive experience for users of all ages.
@@ -44,6 +44,3 @@ The game includes a high score system where players can view their rankings comp
 ![Placeholder for Image 1](#)
 ![Placeholder for Image 2](#)
 ![Placeholder for Image 3](#)
-
-
-<img class="giphy-gif-img giphy-img-loaded" src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnc4OTZ4dTBkeWtyeHg3aWlmc284MTZlcHE4aWtybXVkbm8yYzQ1OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RIjpA5lY1i1RaXx9rS/giphy.gif" style="background:rgba(0,0,0,0)" width="100%" height="100%" alt="michael torpey money GIF by paidoff">
