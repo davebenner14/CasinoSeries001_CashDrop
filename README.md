@@ -1,4 +1,4 @@
-<p align="center">
+<p>
   <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYnc4OTZ4dTBkeWtyeHg3aWlmc284MTZlcHE4aWtybXVkbm8yYzQ1OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/RIjpA5lY1i1RaXx9rS/giphy.gif" width="300" height="300">
   <h1 style="display:inline;"><b>CasinoSeries001 Cash Drop</b></h1>
   <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExb2ZiaHdzYWcwb2llcXZyZnJqdjVnajQyZzRzOWt5OG9xb2R5czZxdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/67ThRZlYBvibtdF9JH/giphy.gif" width="300" height="300">
