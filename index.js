@@ -114,14 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(moveInterval);
         const fallingObjects = document.querySelectorAll('.falling');
         fallingObjects.forEach(obj => obj.remove());
-        alert(`Game Over! Your score is: $${score}`);
-        resetCharacterSelect();
-        resetGame();
-        startMenu.style.display = 'flex';  
-        startMenu.style.flexDirection = 'column';  
-        startMenu.style.alignItems = 'center';  
-        startMenu.style.justifyContent = 'flex-start';  
+        const gameOverEvent = new CustomEvent('gameOver', { detail: { score } });
+        window.dispatchEvent(gameOverEvent);
         gameContainer.style.display = 'none';
+        startMenu.style.display = 'none';
         songs[currentSongIndex].pause();
     }
 
@@ -320,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bird.style.position = 'absolute';
         bird.style.top = '0';
         bird.style.left = '-10vw';
-        bird.style.width = '5vw'; // Default width for desktop
+        bird.style.width = '5vw';
         game.appendChild(bird);
 
         const direction = Math.random() > 0.5 ? 1 : -1;
@@ -390,7 +386,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateSpeedMeter();
             document.querySelectorAll('.character img').forEach(img => img.classList.remove('selected'));
             character.querySelector('img').classList.add('selected');
-            characterSelectMessage.classList.add('hidden'); // Hide message on character select
+            characterSelectMessage.classList.add('hidden');
         });
     });
 
@@ -398,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const key = event.key;
         const playerRect = player.getBoundingClientRect();
         const gameRect = game.getBoundingClientRect();
-        const buffer = game.clientWidth * 0.1;  // Allow player to move further outside the game boundaries
+        const buffer = game.clientWidth * 0.1;
 
         if (key === 'ArrowLeft' && playerRect.left > gameRect.left - buffer) {
             player.style.left = `${Math.max(-buffer, player.offsetLeft - playerSpeed)}px`;
@@ -419,7 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
             moveDirection = 'right';
         }
 
-        movePlayer();  // Move the player once on mousedown
+        movePlayer();
 
         moveInterval = setInterval(() => {
             movePlayer();
@@ -436,7 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
         moveDirection = null;
     });
 
-    // Add touch event listeners for mobile compatibility
     game.addEventListener('touchstart', (event) => {
         const touchX = event.touches[0].clientX;
         const playerRect = player.getBoundingClientRect();
@@ -448,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
             moveDirection = 'right';
         }
 
-        movePlayer();  // Move the player once on touchstart
+        movePlayer();
 
         moveInterval = setInterval(() => {
             movePlayer();
@@ -476,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function movePlayerLeft() {
         const playerRect = player.getBoundingClientRect();
         const gameRect = game.getBoundingClientRect();
-        const buffer = game.clientWidth * 0.1;  // Allow player to move further outside the game boundaries
+        const buffer = game.clientWidth * 0.1;
 
         if (playerRect.left > gameRect.left - buffer) {
             player.style.left = `${Math.max(-buffer, player.offsetLeft - playerSpeed)}px`;
@@ -486,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function movePlayerRight() {
         const playerRect = player.getBoundingClientRect();
         const gameRect = game.getBoundingClientRect();
-        const buffer = game.clientWidth * 0.1;  // Allow player to move further outside the game boundaries
+        const buffer = game.clientWidth * 0.1;
 
         if (playerRect.right < gameRect.right + buffer) {
             player.style.left = `${Math.min(game.clientWidth - player.clientWidth + buffer, player.offsetLeft + playerSpeed)}px`;
@@ -495,5 +490,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     startGameButton.addEventListener('click', () => {
         startGame();
+    });
+
+    backToMenuButton.addEventListener('click', () => {
+        highScoreContainer.style.display = 'none';
+        startMenu.style.display = 'flex';
     });
 });
