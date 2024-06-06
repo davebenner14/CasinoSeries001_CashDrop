@@ -1,388 +1,394 @@
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #222;
-    font-family: 'Arial', sans-serif;
-    overflow-x: hidden;
-    overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #222;
+  font-family: "Arial", sans-serif;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 #startMenu {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 100%;
-    background: url('Assets/TitleBackground.png') no-repeat center top;
-    background-size: 80% auto;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  background: url("Assets/TitleBackground.png") no-repeat center top;
+  background-size: 80% auto;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
 .title {
-    font-family: 'Brush Script MT', cursive;
-    font-size: 5em;
-    color: gold;
-    text-shadow: 2px 2px 5px #000, 0 0 25px gold, 0 0 50px gold;
-    margin-bottom: 20px;
+  font-family: "Brush Script MT", cursive;
+  font-size: 5em;
+  color: gold;
+  text-shadow: 2px 2px 5px #000, 0 0 25px gold, 0 0 50px gold;
+  margin-bottom: 20px;
 }
 
 .assets-display {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
-    font-size: 1.2em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  font-size: 1.2em;
 }
 
 .assets-display div {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
 }
 
 .assets-display img {
-    width: 5vw;
-    margin-right: 10px;
+  width: 5vw;
+  margin-right: 10px;
 }
 
 .assets-display div span {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    font-size: 1.5em;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 1.5em;
 }
 
 .character-select {
-    display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin-bottom: 20px;
 }
 
 .character {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    cursor: pointer;
-    margin: 0 10px;
-    width: 20vw;
-    min-height: 35vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  margin: 0 10px;
+  width: 20vw;
+  min-height: 35vw;
 }
 
 .character img {
-    width: auto;
-    height: 15vw;
-    margin-bottom: 10px;
+  width: auto;
+  height: 15vw;
+  margin-bottom: 10px;
 }
 
 .character img.selected {
-    border: 3px solid gold;
-    box-shadow: 0 0 10px gold;
-    border-radius: 5px;
+  border: 3px solid gold;
+  box-shadow: 0 0 10px gold;
+  border-radius: 5px;
 }
 
 .attributes-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .attributes {
-    text-align: left;
-    width: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  text-align: left;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .meter {
-    background: #444;
-    border: 1px solid #fff;
-    height: 1.5vw;
-    width: 100%;
-    margin-bottom: 5px;
-    position: relative;
+  background: #444;
+  border: 1px solid #fff;
+  height: 1.5vw;
+  width: 100%;
+  margin-bottom: 5px;
+  position: relative;
 }
 
 .meter .fill {
-    background: gold;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
+  background: gold;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .bonus-display {
-    display: flex;
-    justify-content: space-around;
-    width: 80%;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin-bottom: 20px;
 }
 
 .bonus-display div {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.2em;
 }
 
 .bonus-display img {
-    width: 5vw;
-    height: 5vw;
-    margin-bottom: 5px;
+  width: 5vw;
+  height: 5vw;
+  margin-bottom: 5px;
 }
 
 #gameContainer {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 80vw;
-    height: 100vh;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80vw;
+  height: 100vh;
 }
 
 #scoreTimerContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    font-size: 2em;
-    color: gold;
-    background: black;
-    padding: 10px;
-    border: 2px solid gold;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 2em;
+  color: gold;
+  background: black;
+  padding: 10px;
+  border: 2px solid gold;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
-#score, #timer {
-    flex: 1;
-    text-align: center;
+#score,
+#timer {
+  flex: 1;
+  text-align: center;
 }
 
 #speedMeterContainer {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 10px;
-    background: black;
-    border: 2px solid gold;
-    border-radius: 5px;
-    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 10px;
+  background: black;
+  border: 2px solid gold;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 #speedMeterContainer p {
-    margin: 0;
-    margin-right: 10px;
-    color: white;
-    font-size: 1.5em;
+  margin: 0;
+  margin-right: 10px;
+  color: white;
+  font-size: 1.5em;
 }
 
 #speedMeter {
-    display: flex;
-    gap: 2px;
-    flex: 1;
-    height: 20px;
-    background: #222;
-    border-radius: 5px;
-    overflow: hidden;
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  height: 20px;
+  background: #222;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .speed-bar {
-    flex: 1;
+  flex: 1;
 }
 
 #game {
-    position: relative;
-    width: 100%;
-    height: 80vh;
-    background-color: #333;
-    overflow: hidden;
-    border: 2px solid #fff;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  background-color: #333;
+  overflow: hidden;
+  border: 2px solid #fff;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 #player {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    display: none;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  display: none;
 }
 
 #startGameButton {
-    padding: 15px 30px;
-    font-size: 1.5em;
-    cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px #999;
-    transition: all 0.3s ease;
-    margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 1.5em;
+  cursor: pointer;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px #999;
+  transition: all 0.3s ease;
+  margin-top: 20px;
 }
 
 #startGameButton:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 #startGameButton:active {
-    background-color: #3e8e41;
-    box-shadow: 0 2px #666;
-    transform: translateY(2px);
+  background-color: #3e8e41;
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
 }
 
 #musicToggleButton {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    font-size: 1em;
-    cursor: pointer;
-    margin-top: 20px;
-    background-color: #444;
-    color: white;
-    border: 2px solid gold;
-    border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 20px;
+  background-color: #444;
+  color: white;
+  border: 2px solid gold;
+  border-radius: 5px;
 }
 
 #musicToggleButton span {
-    font-size: 1.5em;
-    margin-right: 10px;
+  font-size: 1.5em;
+  margin-right: 10px;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 #highScoreContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #222;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: 'Press Start 2P', cursive;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #222;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
 }
 
 #highScoreContainer h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
+  font-size: 2em;
+  margin-bottom: 20px;
 }
 
 #highScoreList {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
 }
 
 #highScoreList li {
-    font-size: 1.2em;
-    margin: 5px 0;
+  font-size: 1.2em;
+  margin: 5px 0;
 }
 
 #newHighScoreForm {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 #newHighScoreForm input {
-    font-size: 1em;
-    padding: 5px;
-    margin-top: 10px;
+  font-size: 1em;
+  padding: 5px;
+  margin-top: 10px;
 }
 
 #newHighScoreForm button {
-    font-size: 1em;
-    padding: 10px;
-    margin-top: 10px;
+  font-size: 1em;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 #backToMenuButton {
-    font-size: 1em;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #444;
-    color: white;
-    border: 2px solid gold;
-    border-radius: 5px;
-    cursor: pointer;
+  font-size: 1em;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #444;
+  color: white;
+  border: 2px solid gold;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 #highScoreContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #222;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-family: 'Press Start 2P', cursive;
-    display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #222;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
+  display: none;
 }
 
 #highScoreContainer h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px #000;
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 5px #000;
 }
 
 #finalScore {
-    font-size: 1.5em;
-    margin-bottom: 20px;
+  font-size: 1.5em;
+  margin-bottom: 20px;
 }
 
 #highScoreList {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
-    font-size: 1.2em;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 1.2em;
 }
 
 #highScoreList li {
-    margin: 5px 0;
+  margin: 5px 0;
 }
 
-#playerName, #submitScoreButton {
-    font-size: 1em;
-    padding: 10px;
-    margin-top: 10px;
+#playerName,
+#submitScoreButton {
+  font-size: 1em;
+  padding: 10px;
+  margin-top: 10px;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
-
-
 @media (max-width: 600px) {
-    .bird {
-        width: 10vw; 
-    }
+  .bird {
+    width: 10vw;
+  }
 }
